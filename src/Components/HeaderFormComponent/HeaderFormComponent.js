@@ -2,12 +2,12 @@ import React from 'react';
 import logo from '../../source/Vector.png';
 import './HeaderFormComponent.scss'
 
-const HeaderFormComponent = () => {
+const HeaderFormComponent = ({title}) => {
 
   return(
       <div className='header'>
         <img src={logo} alt=''/>
-        <p>Зарегистрироваться в системе</p>
+        <p>{title}</p>
       </div>
   )
 

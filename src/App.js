@@ -1,14 +1,22 @@
 import React from 'react';
 import './App.css';
-import BodyFormComponents from './Components/BodyFormComponet/BodyFormComponent';
+import { Switch, Route, Redirect } from "react-router-dom";
+import RegitstrationFormComponent from './Components/RegistrationFormComponent/RegistrationFormComponent';
+import AuthorizationFormComponent from './Components/AuthorizationFormComponent/AuthorizationFormComponent';
 
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <BodyFormComponents/>
-      </header>
+      <Switch>
+        <Route path="/singup">
+          <RegitstrationFormComponent /> 
+        </Route>
+        <Route path="/singin">
+          <AuthorizationFormComponent /> 
+        </Route>
+        <Redirect from="/" to="/singin" />
+      </Switch>
     </div>
   );
 }
