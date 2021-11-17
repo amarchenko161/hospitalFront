@@ -1,13 +1,11 @@
 import React from 'react';
-import './App.css';
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from 'react-router-dom';
 import RegitstrationFormComponent from './Components/RegistrationFormComponent/RegistrationFormComponent';
 import AuthorizationFormComponent from './Components/AuthorizationFormComponent/AuthorizationFormComponent';
+import './App.css';
 
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
       <Switch>
         <Route path="/singup">
           <RegitstrationFormComponent /> 
@@ -17,7 +15,6 @@ function App() {
         </Route>
         <Redirect from="/" to="/singin" />
       </Switch>
-    </div>
   );
 }
 
