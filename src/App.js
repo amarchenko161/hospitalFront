@@ -13,6 +13,7 @@ const App = () => {
       <Route path="/singin">
         <AuthorizationFormComponent />
       </Route>
+      <Route path="/main">main content</Route>
       <Redirect from="/" to="/singin" />
     </Switch>
   );

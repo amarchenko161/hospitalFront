@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import HeaderFormComponent from "../HeaderFormComponent/HeaderFormComponent";
 import { Link } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
@@ -10,9 +11,9 @@ const RegitstrationFormComponent = () => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [open, setOpen] = useState({ bol: false, message: "" });
-  const {bol, message} = open
+  const { bol, message } = open;
 
-  const checkValidate = () => {
+  const checkValidate = async () => {
     const regxplog = /\w{6,}$/;
     const regxppas = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     const flaglog = regxplog.test(login);
@@ -21,6 +22,18 @@ const RegitstrationFormComponent = () => {
     if (flaglog) {
       if (flagpass) {
         if (password === repeatPassword) {
+          try {
+            await axios
+              .post("http://localhost:8000/createUser", {
+                login,
+                password,
+              })
+              .then((res) => {
+                setOpen({ bol: true, message: "Успешно" });
+              });
+          } catch {
+            setOpen({ bol: true, message: "Пользователь уже есть" });
+          }
         } else {
           setOpen({ bol: true, message: "Пароли не совподают" });
         }
@@ -30,7 +43,7 @@ const RegitstrationFormComponent = () => {
     } else {
       setOpen({ bol: true, message: "Неправильно введен логин" });
     }
-  }
+  };
 
   return (
     <div className="main-body-style">
@@ -76,6 +89,6 @@ const RegitstrationFormComponent = () => {
       />
     </div>
   );
-}
+};
 
-export default RegitstrationFormComponent
+export default RegitstrationFormComponent;
