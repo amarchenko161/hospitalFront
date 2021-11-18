@@ -51,12 +51,14 @@ const AuthorizationFormComponent = () => {
           <input
             type="text"
             name="name"
+            value = {login}
             placeholder="Login"
             onChange={(e) => setLogin(e.target.value.trim())}
           />
           <label>Password:</label>
           <input
             type="password"
+            value={password}
             name="name"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
