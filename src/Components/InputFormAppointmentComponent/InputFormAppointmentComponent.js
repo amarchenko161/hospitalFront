@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { TextField, Autocomplete, Button } from "@mui/material";
 import "./InputFormAppointmentComponent.scss";
 
-const InputFormAppointmentComponent = () => {
+const InputFormAppointmentComponent = ({ report, setReport }) => {
   const [field, setField] = useState({
     name: "",
     date: "",
@@ -11,15 +12,29 @@ const InputFormAppointmentComponent = () => {
 
   const { name, date, complaint } = field;
 
-  console.log(field);
-
   const doctors = [
     { label: "Суровый Эдуард Васильевич" },
     { label: "Васильев Антон Эдуардович" },
     { label: "Головач Елена Альбертовна" },
   ];
 
-  const [doctor, setDoctor] = useState(doctors[0]);
+  const [doctor, setDoctor] = useState("");
+  const [doctorVal, setDoctorVal] = useState(doctors[0]);
+
+  const addAppointment = async () => {
+    await axios
+      .post("http://localhost:8000/createAppointment", {
+        name,
+        doctor,
+        date,
+        complaint,
+      })
+      .then((res) => {
+        report.push(res.data.data);
+        setReport([...report]);
+        setField({ name: "", date: "", complaint: "" });
+      });
+  };
 
   return (
     <div className="form-container">
@@ -29,7 +44,7 @@ const InputFormAppointmentComponent = () => {
           id="outlined-basic"
           variant="outlined"
           value={name || ""}
-          onChange={(e) => setField({ name: e.target.value })}
+          onChange={(e) => setField({ ...field, name: e.target.value })}
         />
       </div>
       <div>
@@ -40,7 +55,7 @@ const InputFormAppointmentComponent = () => {
           options={doctors}
           value={doctor}
           onChange={(event, newValue) => {
-            setDoctor(newValue);
+            setDoctorVal(newValue);
           }}
           sx={{ width: 300 }}
           onInputChange={(event, newValue) => {
@@ -59,7 +74,7 @@ const InputFormAppointmentComponent = () => {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={(e) => setField({ date: e.target.value })}
+          onChange={(e) => setField({ ...field, date: e.target.value })}
         />
       </div>
       <div>
@@ -68,13 +83,14 @@ const InputFormAppointmentComponent = () => {
           id="outlined-basic1"
           variant="outlined"
           value={complaint || ""}
-          onChange={(e) => setField({ complaint: e.target.value })}
+          onChange={(e) => setField({ ...field, complaint: e.target.value })}
         />
       </div>
-      <div>
+      <div className="center-button">
         <Button
           variant="outlined"
           disabled={name && date && complaint && doctor ? false : true}
+          onClick={() => addAppointment()}
         >
           Добавить
         </Button>
