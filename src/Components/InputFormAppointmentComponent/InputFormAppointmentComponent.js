@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TextField, Autocomplete, Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import "./InputFormAppointmentComponent.scss";
 
 const InputFormAppointmentComponent = ({ report, setReport }) => {
   const [field, setField] = useState({
     name: "",
+    doctor: "",
     date: "",
     complaint: "",
   });
-
-  const { name, date, complaint } = field;
+  const { name, doctor, date, complaint } = field;
 
   const doctors = [
-    { label: "Суровый Эдуард Васильевич" },
-    { label: "Васильев Антон Эдуардович" },
-    { label: "Головач Елена Альбертовна" },
+    "Суровый Эдуард Васильевич",
+    "Васильев Антон Эдуардович",
+    "Головач Елена Альбертовна",
   ];
-
-  const [doctor, setDoctor] = useState("");
-  const [doctorVal, setDoctorVal] = useState(doctors[0]);
 
   const addAppointment = async () => {
     await axios
@@ -32,7 +34,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       .then((res) => {
         report.push(res.data.data);
         setReport([...report]);
-        setField({ name: "", date: "", complaint: "" });
+        setField({ name: "", doctor: "", date: "", complaint: "" });
       });
   };
 
@@ -45,26 +47,29 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
           variant="outlined"
           value={name || ""}
           onChange={(e) => setField({ ...field, name: e.target.value })}
-          className = 'input-back'
+          className="input-back"
         />
       </div>
       <div>
         <p>Врач:</p>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={doctors}
-          value={doctor}
-          onChange={(event, newValue) => {
-            setDoctorVal(newValue);
-          }}
-          sx={{ width: 300 }}
-          onInputChange={(event, newValue) => {
-            setDoctor(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} />}
-          className = 'input-back'
-        />
+        <Box sx={{ minWidth: 220 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label"></InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={doctor || ""}
+              className="input-back"
+              onChange={(e) => setField({ ...field, doctor: e.target.value })}
+            >
+              {doctors.map((element, index) => (
+                <MenuItem key={`id${index}`} value={element}>
+                  {element}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
       </div>
       <div>
         <p>Дата:</p>
@@ -77,7 +82,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
             shrink: true,
           }}
           onChange={(e) => setField({ ...field, date: e.target.value })}
-          className = 'input-back'
+          className="input-back"
         />
       </div>
       <div>
@@ -87,7 +92,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
           variant="outlined"
           value={complaint || ""}
           onChange={(e) => setField({ ...field, complaint: e.target.value })}
-          className = 'input-back'
+          className="input-back"
         />
       </div>
       <div className="center-button">

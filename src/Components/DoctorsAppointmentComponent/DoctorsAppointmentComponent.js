@@ -9,13 +9,13 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import InputFormAppointmentComponent from "../InputFormAppointmentComponent/InputFormAppointmentComponent";
+import DeleteIcon from "@mui/icons-material/Delete";
 import HeaderFormComponent from "../HeaderFormComponent/HeaderFormComponent";
-import "./DoctorsAppointmentComponent.scss";
-import DeleteAppointmentModalComponent from "../DeleteAppointmentModalComponents/DeleteAppointmentModalComponent";
+import InputFormAppointmentComponent from "../InputFormAppointmentComponent/InputFormAppointmentComponent";
 import EditAppointmentModalComponent from "../EditAppointmentModalComponents/EditAppointmentModalComponent";
+import DeleteAppointmentModalComponent from "../DeleteAppointmentModalComponents/DeleteAppointmentModalComponent";
+import "./DoctorsAppointmentComponent.scss";
 
 const DoctorsAppointmentComponent = ({ report, setReport }) => {
   const [openDelet, setOpenDelet] = useState(false);
