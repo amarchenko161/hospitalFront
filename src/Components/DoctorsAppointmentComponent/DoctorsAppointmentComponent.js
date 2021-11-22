@@ -1,17 +1,22 @@
 import React from "react";
-import HeaderFormComponent from "../HeaderFormComponent/HeaderFormComponent";
 import { Button } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import InputFormAppointmentComponent from "../InputFormAppointmentComponent/InputFormAppointmentComponent";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-
+import HeaderFormComponent from "../HeaderFormComponent/HeaderFormComponent";
 import "./DoctorsAppointmentComponent.scss";
+
 const DoctorsAppointmentComponent = ({ report, setReport }) => {
+
+  const nametable = ['Имя','Врач','Дата', 'Жалобы']
   return (
     <div>
       <HeaderFormComponent title="Приемы">
@@ -23,10 +28,9 @@ const DoctorsAppointmentComponent = ({ report, setReport }) => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Имя</TableCell>
-                <TableCell>Врач</TableCell>
-                <TableCell>Дата</TableCell>
-                <TableCell>Жалобы</TableCell>
+                {
+                  nametable.map(element => <TableCell>Имя</TableCell>)
+                }
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
