@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import {
   Table,
@@ -10,13 +10,34 @@ import {
   Paper,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import InputFormAppointmentComponent from "../InputFormAppointmentComponent/InputFormAppointmentComponent";
 import HeaderFormComponent from "../HeaderFormComponent/HeaderFormComponent";
 import "./DoctorsAppointmentComponent.scss";
+import DeleteAppointmentModalComponent from "../DeleteAppointmentModalComponents/DeleteAppointmentModalComponent";
+import EditAppointmentModalComponent from "../EditAppointmentModalComponents/EditAppointmentModalComponent";
 
 const DoctorsAppointmentComponent = ({ report, setReport }) => {
+  const [openDelet, setOpenDelet] = useState(false);
+  const [visit, setVisit] = useState(-1);
+  const [openEdit, setOpenEdit] = useState(false);
+  const nametable = ["Имя", "Врач", "Дата", "Жалобы"];
 
-  const nametable = ['Имя','Врач','Дата', 'Жалобы']
+  const deleteModal = (index) => {
+    setVisit(index);
+    setOpenDelet(true);
+  };
+
+  const editModal = (index) => {
+    setVisit(index);
+    setOpenEdit(true);
+  };
+
+  const closeModal = () => {
+    setOpenDelet(false);
+    setVisit(-1);
+  };
+
   return (
     <div>
       <HeaderFormComponent title="Приемы">
@@ -28,27 +49,47 @@ const DoctorsAppointmentComponent = ({ report, setReport }) => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                {
-                  nametable.map(element => <TableCell>Имя</TableCell>)
-                }
+                {nametable.map((element) => (
+                  <TableCell key={`key-${element}`}>{element}</TableCell>
+                ))}
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {report.map((row) => (
-                <TableRow key={row.name}>
+              {report.map((row, index) => (
+                <TableRow key={row._id}>
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
                   <TableCell>{row.doctor}</TableCell>
-                  <TableCell>{row.date}</TableCell>
+                  <TableCell>
+                    {row.date.slice(0, 10).split("-").reverse().join(".")}
+                  </TableCell>
                   <TableCell>{row.complaint}</TableCell>
-                  <TableCell>Кнопки</TableCell>
+                  <TableCell>
+                    <EditIcon onClick={() => editModal(index)} />
+                    <DeleteIcon onClick={() => deleteModal(index)} />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        {openDelet && (
+          <DeleteAppointmentModalComponent
+            closeModal={closeModal}
+            visitId={report[visit]._id}
+            setReport={setReport}
+          />
+        )}
+        {openEdit && (
+          <EditAppointmentModalComponent
+            openEdit={openEdit}
+            setOpenEdit={setOpenEdit}
+            visit={report[visit]}
+            setReport={setReport}
+          />
+        )}
       </div>
     </div>
   );

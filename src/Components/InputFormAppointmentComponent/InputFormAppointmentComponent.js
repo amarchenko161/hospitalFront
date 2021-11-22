@@ -45,6 +45,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
           variant="outlined"
           value={name || ""}
           onChange={(e) => setField({ ...field, name: e.target.value })}
+          className = 'input-back'
         />
       </div>
       <div>
@@ -62,6 +63,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
             setDoctor(newValue);
           }}
           renderInput={(params) => <TextField {...params} />}
+          className = 'input-back'
         />
       </div>
       <div>
@@ -75,6 +77,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
             shrink: true,
           }}
           onChange={(e) => setField({ ...field, date: e.target.value })}
+          className = 'input-back'
         />
       </div>
       <div>
@@ -84,6 +87,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
           variant="outlined"
           value={complaint || ""}
           onChange={(e) => setField({ ...field, complaint: e.target.value })}
+          className = 'input-back'
         />
       </div>
       <div className="center-button">
