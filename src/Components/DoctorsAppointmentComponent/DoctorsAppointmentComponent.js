@@ -88,6 +88,7 @@ const DoctorsAppointmentComponent = ({ report, setReport }) => {
             setOpenEdit={setOpenEdit}
             visit={report[visit]}
             setReport={setReport}
+            report = {report}
           />
         )}
       </div>

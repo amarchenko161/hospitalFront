@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { TextField, Autocomplete, Button } from "@mui/material";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import {
+  TextField,
+  Button,
+  Box,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 import "./InputFormAppointmentComponent.scss";
 
 const InputFormAppointmentComponent = ({ report, setReport }) => {
@@ -52,9 +54,8 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       </div>
       <div>
         <p>Врач:</p>
-        <Box sx={{ minWidth: 220 }}>
+        <Box sx={{ minWidth: 720 }}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label"></InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
