@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
-  TextField,
   Button,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
   Box,
   MenuItem,
   FormControl,
   Select,
 } from "@mui/material";
-import "./InputFormAppointmentComponent.scss";
 
-const InputFormAppointmentComponent = ({ report, setReport }) => {
-  const [field, setField] = useState({
-    name: "",
-    doctor: "",
-    date: "",
-    complaint: "",
-  });
-  const { name, doctor, date, complaint } = field;
+const EditAppointmentModalComponent = ({
+  openEdit,
+  setOpenEdit,
+  visit,
+  setReport,
+  report,
+}) => {
+  const { name, doctor, date, complaint } = visit;
+
+  console.log(name);
 
   const doctors = [
     "Суровый Эдуард Васильевич",
@@ -25,43 +29,34 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
     "Головач Елена Альбертовна",
   ];
 
-  const addAppointment = async () => {
-    await axios
-      .post("http://localhost:8000/createAppointment", {
-        name,
-        doctor,
-        date,
-        complaint,
-      })
-      .then((res) => {
-        report.push(res.data.data);
-        setReport([...report]);
-        setField({ name: "", doctor: "", date: "", complaint: "" });
-      });
-  };
+  const closeEdit = () => setOpenEdit(false);
 
   return (
-    <div className="form-container">
-      <div>
+    <Dialog
+      open={openEdit}
+      onClose={closeEdit}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">Изменить прием</DialogTitle>
+      <DialogContent>
         <p>Имя:</p>
         <TextField
           id="outlined-basic"
           variant="outlined"
           value={name || ""}
-          onChange={(e) => setField({ ...field, name: e.target.value })}
+          onChange={(e) => setReport({ ...report, name: e.target.value })}
           className="input-back"
         />
-      </div>
-      <div>
+
         <p>Врач:</p>
-        <Box sx={{ minWidth: 720 }}>
+        <Box sx={{ minWidth: 220 }}>
           <FormControl fullWidth>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={doctor || ""}
               className="input-back"
-              onChange={(e) => setField({ ...field, doctor: e.target.value })}
             >
               {doctors.map((element, index) => (
                 <MenuItem key={`id${index}`} value={element}>
@@ -71,8 +66,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
             </Select>
           </FormControl>
         </Box>
-      </div>
-      <div>
+
         <p>Дата:</p>
         <TextField
           id="date"
@@ -82,31 +76,25 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={(e) => setField({ ...field, date: e.target.value })}
           className="input-back"
         />
-      </div>
-      <div>
+
         <p>Жалобы:</p>
         <TextField
           id="outlined-basic1"
           variant="outlined"
           value={complaint || ""}
-          onChange={(e) => setField({ ...field, complaint: e.target.value })}
           className="input-back"
         />
-      </div>
-      <div className="center-button">
-        <Button
-          variant="outlined"
-          disabled={name && date && complaint && doctor ? false : true}
-          onClick={() => addAppointment()}
-        >
-          Добавить
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={closeEdit}>Cancel</Button>
+        <Button onClick={closeEdit} autoFocus>
+          Save
         </Button>
-      </div>
-    </div>
+      </DialogActions>
+    </Dialog>
   );
 };
 
-export default InputFormAppointmentComponent;
+export default EditAppointmentModalComponent;
