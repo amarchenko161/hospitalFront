@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -17,7 +20,22 @@ import EditAppointmentModalComponent from "../EditAppointmentModalComponents/Edi
 import DeleteAppointmentModalComponent from "../DeleteAppointmentModalComponents/DeleteAppointmentModalComponent";
 import "./DoctorsAppointmentComponent.scss";
 
-const DoctorsAppointmentComponent = ({ report, setReport }) => {
+const DoctorsAppointmentComponent = () => {
+  const [report, setReport] = useState([])
+  const history = useHistory("");
+
+  useEffect(() => {
+      axios
+      .get("http://localhost:8000/allAppointment", {
+        headers: {
+          token: localStorage.getItem("token"),
+        }
+      })
+      .then((res) => {
+        setReport(res.data.data);
+      }).catch(err => history.push("/"));
+  }, [history]);
+
   const [openDelet, setOpenDelet] = useState(false);
   const [visit, setVisit] = useState(-1);
   const [openEdit, setOpenEdit] = useState(false);
@@ -38,10 +56,17 @@ const DoctorsAppointmentComponent = ({ report, setReport }) => {
     setVisit(-1);
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    history.push("/");
+  };
+
   return (
     <div>
       <HeaderFormComponent title="Приемы">
-        <Button variant="contained">Выйти</Button>
+        <Button variant="contained" onClick={() => logout()}>
+          Выйти
+        </Button>
       </HeaderFormComponent>
       <InputFormAppointmentComponent report={report} setReport={setReport} />
       <div className="container-appointment-style">
@@ -88,7 +113,6 @@ const DoctorsAppointmentComponent = ({ report, setReport }) => {
             setOpenEdit={setOpenEdit}
             visit={report[visit]}
             setReport={setReport}
-            report = {report}
           />
         )}
       </div>

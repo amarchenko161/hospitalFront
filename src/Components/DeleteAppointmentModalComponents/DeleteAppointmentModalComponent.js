@@ -15,6 +15,8 @@ const DeleteAppointmentModalComponent = ({
   visitId,
   setReport,
 }) => {
+
+  console.log(visitId)
   const deleteAppointment = async () => {
     await axios
       .delete(`http://localhost:8000/deleteAppointment?_id=${visitId}`)

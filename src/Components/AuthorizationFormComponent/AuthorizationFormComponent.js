@@ -28,6 +28,7 @@ const AuthorizationFormComponent = () => {
               password,
             })
             .then((res) => {
+              localStorage.setItem('token', res.data)
               history.push("/main");
             });
         } catch {

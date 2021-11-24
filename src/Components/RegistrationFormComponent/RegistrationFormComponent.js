@@ -30,6 +30,7 @@ const RegitstrationFormComponent = () => {
                 password,
               })
               .then((res) => {
+                localStorage.setItem('token', res.data.token)
                 history.push("/main");
               });
           } catch {

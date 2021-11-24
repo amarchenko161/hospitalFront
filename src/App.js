@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import RegitstrationFormComponent from "./Components/RegistrationFormComponent/RegistrationFormComponent";
 import AuthorizationFormComponent from "./Components/AuthorizationFormComponent/AuthorizationFormComponent";
@@ -7,14 +6,6 @@ import DoctorsAppointmentComponent from './Components/DoctorsAppointmentComponen
 import "./App.css";
 
 const App = () => {
-
-const [report, setReport] = useState([])
-
-useEffect(() => {
-  axios.get("http://localhost:8000/allAppointment").then((res) => {
-    setReport(res.data.data);
-  });
-}, []);
 
   return (
     <Switch>
@@ -25,7 +16,7 @@ useEffect(() => {
         <AuthorizationFormComponent />
       </Route>
       <Route path="/main">
-        <DoctorsAppointmentComponent report={report} setReport={setReport}/>  
+        <DoctorsAppointmentComponent />  
       </Route>
       <Redirect from="/" to="/singin" />
     </Switch>
