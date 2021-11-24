@@ -7,7 +7,6 @@ import logo from "../../source/logoBody.png";
 import "./AuthorizationFormComponent.scss";
 
 const AuthorizationFormComponent = () => {
-
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState({ bol: false, message: "" });
@@ -15,7 +14,6 @@ const AuthorizationFormComponent = () => {
   const history = useHistory("");
 
   const checkValidate = async () => {
-
     const regxplog = /\w{6,}$/;
     const regxppas = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     const flaglog = regxplog.test(login);
@@ -27,21 +25,21 @@ const AuthorizationFormComponent = () => {
           await axios
             .post("http://localhost:8000/singin", {
               login,
-              password
+              password,
             })
             .then((res) => {
-              localStorage.setItem('token', res.data);
+              localStorage.setItem("token", res.data);
               history.push("/main");
             });
         } catch {
           setOpen({
             bol: true,
-            message: "Ошибка входа. Проверьте данные еще раз"
+            message: "Ошибка входа. Проверьте данные еще раз",
           });
         }
       }
     }
-  }
+  };
 
   return (
     <div className="main-body-style">
@@ -67,7 +65,7 @@ const AuthorizationFormComponent = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div className="link-style">
-            <button onClick={() => checkValidate()}> Войти </button>
+            <button onClick={() => checkValidate()}>Войти</button>
             <Link to="/singup" className="link-text">
               Зарегистрироваться
             </Link>
@@ -82,6 +80,6 @@ const AuthorizationFormComponent = () => {
       />
     </div>
   );
-}
+};
 
 export default AuthorizationFormComponent;

@@ -39,7 +39,7 @@ const DeleteAppointmentModalComponent = ({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => closeModal()}> Cancel </Button>
+          <Button onClick={() => closeModal()}>Cancel</Button>
           <Button onClick={() => deleteAppointment()} autoFocus>
             Delete
           </Button>

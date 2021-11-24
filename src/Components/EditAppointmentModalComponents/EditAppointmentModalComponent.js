@@ -10,7 +10,7 @@ import {
   Box,
   MenuItem,
   FormControl,
-  Select
+  Select,
 } from "@mui/material";
 import "./EditAppointmentModalComponent.scss";
 
@@ -18,14 +18,14 @@ const EditAppointmentModalComponent = ({
   openEdit,
   setOpenEdit,
   visit,
-  setReport
+  setReport,
 }) => {
   const { _id, name, doctor, date, complaint } = visit;
   const [field, setField] = useState({
     nameVal: name,
     doctorVal: doctor,
     dateVal: date,
-    complaintVal: complaint
+    complaintVal: complaint,
   });
 
   const { nameVal, doctorVal, dateVal, complaintVal } = field;
@@ -44,7 +44,7 @@ const EditAppointmentModalComponent = ({
         name: nameVal,
         doctor: doctorVal,
         date: dateVal,
-        complaint: complaintVal
+        complaint: complaintVal,
       })
       .then((res) => {
         closeEdit();
@@ -66,7 +66,7 @@ const EditAppointmentModalComponent = ({
         <TextField
           id="outlined-basic"
           variant="outlined"
-          defaultValue={ name || "" }
+          defaultValue={name || ""}
           onChange={(e) => setField({ ...field, nameVal: e.target.value })}
           className="input-back"
         />
@@ -77,7 +77,9 @@ const EditAppointmentModalComponent = ({
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               defaultValue={doctor || ""}
-              onChange={(e) => setField({ ...field, doctorVal: e.target.value })}
+              onChange={(e) =>
+                setField({ ...field, doctorVal: e.target.value })
+              }
               className="input-back"
             >
               {doctors.map((element, index) => (
@@ -92,11 +94,11 @@ const EditAppointmentModalComponent = ({
         <TextField
           id="date"
           type="date"
-          defaultValue={ date || "" }
+          defaultValue={date || ""}
           onChange={(e) => setField({ ...field, dateVal: e.target.value })}
           sx={{ width: 220 }}
           InputLabelProps={{
-            shrink: true
+            shrink: true,
           }}
           className="input-back"
         />
@@ -107,17 +109,19 @@ const EditAppointmentModalComponent = ({
           rows={2}
           rowsMax={4}
           variant="outlined"
-          defaultValue={ complaint || "" }
+          defaultValue={complaint || ""}
           onChange={(e) => setField({ ...field, complaintVal: e.target.value })}
           className="input-back"
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => closeEdit()}> Cancel </Button>
-        <Button onClick={() => saveAppointment()} autoFocus> Save </Button>
+        <Button onClick={() => closeEdit()}>Cancel</Button>
+        <Button onClick={() => saveAppointment()} autoFocus>
+          Save
+        </Button>
       </DialogActions>
     </Dialog>
   );
-};
+}
 
 export default EditAppointmentModalComponent;
