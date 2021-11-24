@@ -27,12 +27,20 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
 
   const addAppointment = async () => {
     await axios
-      .post("http://localhost:8000/createAppointment", {
-        name,
-        doctor,
-        date,
-        complaint,
-      })
+      .post(
+        "http://localhost:8000/createAppointment",
+        {
+          name,
+          doctor,
+          date,
+          complaint,
+        },
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((res) => {
         report.push(res.data.data);
         setReport([...report]);
@@ -54,7 +62,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       </div>
       <div>
         <p>Врач:</p>
-        <Box sx={{ minWidth: 720 }}>
+        <Box sx={{ minWidth: 300 }}>
           <FormControl fullWidth>
             <Select
               labelId="demo-simple-select-label"
@@ -99,7 +107,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       <div className="center-button">
         <Button
           variant="outlined"
-          disabled={name && date && complaint && doctor ? false : true}
+          disabled={!(name && date && complaint && doctor)}
           onClick={() => addAppointment()}
         >
           Добавить
@@ -107,6 +115,6 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       </div>
     </div>
   );
-};
+}
 
 export default InputFormAppointmentComponent;

@@ -28,6 +28,7 @@ const AuthorizationFormComponent = () => {
               password,
             })
             .then((res) => {
+              localStorage.setItem("token", res.data);
               history.push("/main");
             });
         } catch {
@@ -64,7 +65,7 @@ const AuthorizationFormComponent = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div className="link-style">
-            <button onClick={() => checkValidate()}>Войти </button>
+            <button onClick={() => checkValidate()}>Войти</button>
             <Link to="/singup" className="link-text">
               Зарегистрироваться
             </Link>
