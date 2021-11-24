@@ -6,17 +6,15 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
+  DialogTitle
 } from "@mui/material";
 
 const DeleteAppointmentModalComponent = ({
-  openDelet,
   closeModal,
   visitId,
-  setReport,
+  setReport
 }) => {
 
-  console.log(visitId)
   const deleteAppointment = async () => {
     await axios
       .delete(`http://localhost:8000/deleteAppointment?_id=${visitId}`)
@@ -24,7 +22,7 @@ const DeleteAppointmentModalComponent = ({
         closeModal();
         setReport(res.data.data);
       });
-  };
+  }
 
   return (
     <div>
@@ -34,14 +32,14 @@ const DeleteAppointmentModalComponent = ({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Удалить прием</DialogTitle>
+        <DialogTitle id="alert-dialog-title"> Удалить прием </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Вы действительно хотите удалить прием ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => closeModal()}>Cancel</Button>
+          <Button onClick={() => closeModal()}> Cancel </Button>
           <Button onClick={() => deleteAppointment()} autoFocus>
             Delete
           </Button>
@@ -49,6 +47,6 @@ const DeleteAppointmentModalComponent = ({
       </Dialog>
     </div>
   );
-};
+}
 
 export default DeleteAppointmentModalComponent;

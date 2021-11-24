@@ -10,7 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Paper
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,14 +21,15 @@ import DeleteAppointmentModalComponent from "../DeleteAppointmentModalComponents
 import "./DoctorsAppointmentComponent.scss";
 
 const DoctorsAppointmentComponent = () => {
-  const [report, setReport] = useState([])
+  
+  const [report, setReport] = useState([]);
   const history = useHistory("");
 
   useEffect(() => {
       axios
       .get("http://localhost:8000/allAppointment", {
         headers: {
-          token: localStorage.getItem("token"),
+          token: localStorage.getItem("token")
         }
       })
       .then((res) => {
@@ -118,6 +119,6 @@ const DoctorsAppointmentComponent = () => {
       </div>
     </div>
   );
-};
+}
 
 export default DoctorsAppointmentComponent;

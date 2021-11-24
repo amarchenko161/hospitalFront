@@ -6,7 +6,7 @@ import {
   Box,
   MenuItem,
   FormControl,
-  Select,
+  Select  
 } from "@mui/material";
 import "./InputFormAppointmentComponent.scss";
 
@@ -15,7 +15,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
     name: "",
     doctor: "",
     date: "",
-    complaint: "",
+    complaint: ""
   });
   const { name, doctor, date, complaint } = field;
 
@@ -46,7 +46,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
         setReport([...report]);
         setField({ name: "", doctor: "", date: "", complaint: "" });
       });
-  };
+  }
 
   return (
     <div className="form-container">
@@ -55,7 +55,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
         <TextField
           id="outlined-basic"
           variant="outlined"
-          value={name || ""}
+          value={ name || "" }
           onChange={(e) => setField({ ...field, name: e.target.value })}
           className="input-back"
         />
@@ -67,7 +67,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={doctor || ""}
+              value={ doctor || "" }
               className="input-back"
               onChange={(e) => setField({ ...field, doctor: e.target.value })}
             >
@@ -85,7 +85,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
         <TextField
           id="date"
           type="date"
-          defaultValue={date || ""}
+          defaultValue={ date || "" }
           sx={{ width: 220 }}
           InputLabelProps={{
             shrink: true,
@@ -99,7 +99,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
         <TextField
           id="outlined-basic1"
           variant="outlined"
-          value={complaint || ""}
+          value={ complaint || "" }
           onChange={(e) => setField({ ...field, complaint: e.target.value })}
           className="input-back"
         />
@@ -107,7 +107,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       <div className="center-button">
         <Button
           variant="outlined"
-          disabled={name && date && complaint && doctor ? false : true}
+          disabled={ name && date && complaint && doctor ? false : true }
           onClick={() => addAppointment()}
         >
           Добавить
@@ -115,6 +115,6 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       </div>
     </div>
   );
-};
+}
 
 export default InputFormAppointmentComponent;

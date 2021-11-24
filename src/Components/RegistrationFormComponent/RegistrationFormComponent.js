@@ -30,7 +30,7 @@ const RegitstrationFormComponent = () => {
                 password,
               })
               .then((res) => {
-                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('token', res.data.token);
                 history.push("/main");
               });
           } catch {
@@ -45,7 +45,7 @@ const RegitstrationFormComponent = () => {
     } else {
       setOpen({ bol: true, message: "Неправильно введен логин" });
     }
-  };
+  }
 
   return (
     <div className="main-body-style">
@@ -94,6 +94,6 @@ const RegitstrationFormComponent = () => {
       />
     </div>
   );
-};
+}
 
 export default RegitstrationFormComponent;
