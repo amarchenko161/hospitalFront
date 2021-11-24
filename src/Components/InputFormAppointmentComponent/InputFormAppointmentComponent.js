@@ -107,7 +107,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       <div className="center-button">
         <Button
           variant="outlined"
-          disabled={name && date && complaint && doctor ? false : true}
+          disabled={!(name && date && complaint && doctor) ? false : true}
           onClick={() => addAppointment()}
         >
           Добавить
