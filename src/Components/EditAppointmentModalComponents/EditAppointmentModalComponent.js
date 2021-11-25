@@ -34,8 +34,6 @@ const EditAppointmentModalComponent = ({
     "Головач Елена Альбертовна",
   ];
 
-  const closeEdit = () => closeModal();
-
   const saveAppointment = async () => {
     await axios
       .patch("http://localhost:8000/updateAppointmen",  {
@@ -111,7 +109,6 @@ const EditAppointmentModalComponent = ({
           id="outlined-basic1"
           multiline
           rows={2}
-          
           variant="outlined"
           defaultValue={complaint || ""}
           onChange={(e) => setField({ ...fields, complaintVal: e.target.value })}
@@ -119,7 +116,7 @@ const EditAppointmentModalComponent = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => closeEdit()}>Cancel</Button>
+        <Button onClick={() => closeModal()}>Cancel</Button>
         <Button onClick={() => saveAppointment()} autoFocus>
           Save
         </Button>
