@@ -1,0 +1,19 @@
+.sort-style{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  .sort-component {
+    width: 15%;
+    margin-right: 5%;
+    margin-top: 1%;
+    background-color: white;
+  }
+
+  .sort-component-type {
+    width: 15%;
+    margin-right: 5%;
+    margin-top: 1%;
+    background-color: white;
+  }
+}
