@@ -15,47 +15,49 @@ import {
 import "./EditAppointmentModalComponent.scss";
 
 const EditAppointmentModalComponent = ({
-  openEdit,
-  setOpenEdit,
+  closeModal,
   visit,
   setReport,
 }) => {
   const { _id, name, doctor, date, complaint } = visit;
-  const [field, setField] = useState({
+  const [fields, setField] = useState({
     nameVal: name,
     doctorVal: doctor,
     dateVal: date,
     complaintVal: complaint,
   });
 
-  const { nameVal, doctorVal, dateVal, complaintVal } = field;
+  const { nameVal, doctorVal, dateVal, complaintVal } = fields;
   const doctors = [
     "Суровый Эдуард Васильевич",
     "Васильев Антон Эдуардович",
     "Головач Елена Альбертовна",
   ];
 
-  const closeEdit = () => setOpenEdit(false);
-
   const saveAppointment = async () => {
     await axios
-      .patch("http://localhost:8000/updateAppointmen", {
+      .patch("http://localhost:8000/updateAppointmen",  {
         _id,
         name: nameVal,
         doctor: doctorVal,
         date: dateVal,
         complaint: complaintVal,
-      })
+      }, {
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      }
+      )
       .then((res) => {
-        closeEdit();
+        closeModal();
         setReport(res.data.data);
       });
   };
 
   return (
     <Dialog
-      open={openEdit}
-      onClose={closeEdit()}
+      open={true}
+      onClose={closeModal}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       className="edit-modal-style"
@@ -67,7 +69,7 @@ const EditAppointmentModalComponent = ({
           id="outlined-basic"
           variant="outlined"
           defaultValue={name || ""}
-          onChange={(e) => setField({ ...field, nameVal: e.target.value })}
+          onChange={(e) => setField({ ...fields, nameVal: e.target.value })}
           className="input-back"
         />
         <p>Врач:</p>
@@ -78,7 +80,7 @@ const EditAppointmentModalComponent = ({
               id="demo-simple-select"
               defaultValue={doctor || ""}
               onChange={(e) =>
-                setField({ ...field, doctorVal: e.target.value })
+                setField({ ...fields, doctorVal: e.target.value })
               }
               className="input-back"
             >
@@ -95,7 +97,7 @@ const EditAppointmentModalComponent = ({
           id="date"
           type="date"
           defaultValue={date || ""}
-          onChange={(e) => setField({ ...field, dateVal: e.target.value })}
+          onChange={(e) => setField({ ...fields, dateVal: e.target.value })}
           sx={{ width: 220 }}
           InputLabelProps={{
             shrink: true,
@@ -107,15 +109,14 @@ const EditAppointmentModalComponent = ({
           id="outlined-basic1"
           multiline
           rows={2}
-          rowsMax={4}
           variant="outlined"
           defaultValue={complaint || ""}
-          onChange={(e) => setField({ ...field, complaintVal: e.target.value })}
+          onChange={(e) => setField({ ...fields, complaintVal: e.target.value })}
           className="input-back"
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => closeEdit()}>Cancel</Button>
+        <Button onClick={() => closeModal()}>Cancel</Button>
         <Button onClick={() => saveAppointment()} autoFocus>
           Save
         </Button>

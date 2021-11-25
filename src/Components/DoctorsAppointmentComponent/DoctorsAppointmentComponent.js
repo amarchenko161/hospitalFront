@@ -15,52 +15,53 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import HeaderFormComponent from "../HeaderFormComponent/HeaderFormComponent";
+import SortAppointmentsComponent from "../SortAppointmentsComponent/SortAppointmentsComponent";
 import InputFormAppointmentComponent from "../InputFormAppointmentComponent/InputFormAppointmentComponent";
 import EditAppointmentModalComponent from "../EditAppointmentModalComponents/EditAppointmentModalComponent";
 import DeleteAppointmentModalComponent from "../DeleteAppointmentModalComponents/DeleteAppointmentModalComponent";
 import "./DoctorsAppointmentComponent.scss";
 
 const DoctorsAppointmentComponent = () => {
-  
-  const [report, setReport] = useState([]);
-  const history = useHistory("");
-
-  useEffect(() => {
-      axios
-      .get("http://localhost:8000/allAppointment", {
-        headers: {
-          token: localStorage.getItem("token")
-        }
-      })
-      .then((res) => {
-        setReport(res.data.data);
-      }).catch(err => history.push("/"));
-  }, [history]);
-
   const [openDelet, setOpenDelet] = useState(false);
   const [visit, setVisit] = useState(-1);
   const [openEdit, setOpenEdit] = useState(false);
+  const [report, setReport] = useState([]);
   const nametable = ["Имя", "Врач", "Дата", "Жалобы"];
+
+  const history = useHistory("");
+
+  useEffect(() => {
+    axios
+    .get("http://localhost:8000/allAppointment", {
+      headers: {
+        token: localStorage.getItem("token")
+      }
+    })
+    .then((res) => {
+      setReport(res.data.data);
+    }).catch(err => history.push("/"));
+  }, [history]);
 
   const deleteModal = (index) => {
     setVisit(index);
     setOpenDelet(true);
-  };
+  }
 
   const editModal = (index) => {
     setVisit(index);
     setOpenEdit(true);
-  };
+  }
 
   const closeModal = () => {
+    setOpenEdit(false);
     setOpenDelet(false);
     setVisit(-1);
-  };
+  }
 
   const logout = () => {
     localStorage.removeItem("token");
     history.push("/");
-  };
+  }
 
   return (
     <div>
@@ -70,6 +71,7 @@ const DoctorsAppointmentComponent = () => {
         </Button>
       </HeaderFormComponent>
       <InputFormAppointmentComponent report={report} setReport={setReport} />
+      <SortAppointmentsComponent report={report} setReport={setReport}/>
       <div className="container-appointment-style">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -110,8 +112,7 @@ const DoctorsAppointmentComponent = () => {
         )}
         {openEdit && (
           <EditAppointmentModalComponent
-            openEdit={openEdit}
-            setOpenEdit={setOpenEdit}
+            closeModal={closeModal}
             visit={report[visit]}
             setReport={setReport}
           />
@@ -121,4 +122,4 @@ const DoctorsAppointmentComponent = () => {
   );
 }
 
-export default DoctorsAppointmentComponent;
+export default DoctorsAppointmentComponent
