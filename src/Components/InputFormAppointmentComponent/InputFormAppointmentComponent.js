@@ -14,7 +14,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
   const [field, setField] = useState({
     name: "",
     doctor: "",
-    date: "",
+    date: new Date(),
     complaint: "",
   });
   const { name, doctor, date, complaint } = field;
@@ -44,15 +44,15 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
       .then((res) => {
         report.push(res.data.data);
         setReport([...report]);
-        setField({ name: "", doctor: "", date: "", complaint: "" });
+        setField({ name: "", doctor: "", date: new Date(), complaint: "" });
       });
   };
 
   return (
     <div className="form-container">
-      <div>
+      <div className='input-styles'>
         <p>Имя:</p>
-        <TextField
+        <TextField fullWidth
           id="outlined-basic"
           variant="outlined"
           value={name || ""}
@@ -60,7 +60,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
           className="input-back"
         />
       </div>
-      <div>
+      <div className='input-styles'>
         <p>Врач:</p>
         <Box sx={{ minWidth: 300 }}>
           <FormControl fullWidth>
@@ -80,12 +80,12 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
           </FormControl>
         </Box>
       </div>
-      <div>
+      <div className='input-styles'>
         <p>Дата:</p>
-        <TextField
+        <TextField fullWidth
           id="date"
           type="date"
-          defaultValue={date || ""}
+          value={date || new Date()}
           sx={{ width: 220 }}
           InputLabelProps={{
             shrink: true,
@@ -94,9 +94,9 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
           className="input-back"
         />
       </div>
-      <div>
+      <div className='input-styles'>
         <p>Жалобы:</p>
-        <TextField
+        <TextField fullWidth
           id="outlined-basic1"
           variant="outlined"
           value={complaint || ""}
@@ -105,7 +105,7 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
         />
       </div>
       <div className="center-button">
-        <Button
+        <Button 
           variant="outlined"
           disabled={!(name && date && complaint && doctor)}
           onClick={() => addAppointment()}

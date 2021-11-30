@@ -2,18 +2,27 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  padding-right: 20px;
 
-  .sort-component {
-    width: 15%;
+  .input-space {
     margin-right: 5%;
-    margin-top: 1%;
-    background-color: white;
-  }
-
-  .sort-component-type {
-    width: 15%;
-    margin-right: 5%;
-    margin-top: 1%;
     background-color: white;
   }
 }
+
+@media screen and (max-width: 800px) {
+  .sort-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    padding-right: 20px;
+
+    .input-space {
+     margin-bottom: 2%;
+     width: 100%;
+    }
+  }
+}
+

@@ -10,12 +10,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import HeaderFormComponent from "../HeaderFormComponent/HeaderFormComponent";
 import SortAppointmentsComponent from "../SortAppointmentsComponent/SortAppointmentsComponent";
+import FilterAppointmentComponent from "../FilterAppointmentComponent/FilterAppointmentComponent";
 import InputFormAppointmentComponent from "../InputFormAppointmentComponent/InputFormAppointmentComponent";
 import EditAppointmentModalComponent from "../EditAppointmentModalComponents/EditAppointmentModalComponent";
 import DeleteAppointmentModalComponent from "../DeleteAppointmentModalComponents/DeleteAppointmentModalComponent";
@@ -27,19 +29,24 @@ const DoctorsAppointmentComponent = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [report, setReport] = useState([]);
   const nametable = ["Имя", "Врач", "Дата", "Жалобы"];
+  const [openFilter, setOpenFilter] = useState(0);
+
+  const openFilterFunc = () => {
+    setOpenFilter(1);
+  }
 
   const history = useHistory("");
 
   useEffect(() => {
     axios
-    .get("http://localhost:8000/allAppointment", {
-      headers: {
-        token: localStorage.getItem("token")
-      }
-    })
-    .then((res) => {
-      setReport(res.data.data);
-    }).catch(err => history.push("/"));
+      .get("http://localhost:8000/allAppointment", {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setReport(res.data.data);
+      })
   }, [history]);
 
   const deleteModal = (index) => {
@@ -71,14 +78,30 @@ const DoctorsAppointmentComponent = () => {
         </Button>
       </HeaderFormComponent>
       <InputFormAppointmentComponent report={report} setReport={setReport} />
-      <SortAppointmentsComponent report={report} setReport={setReport}/>
+      <div className={
+        openFilter ? "sort-and-filter-wrap" : "sort-and-filter"
+      }>
+        <SortAppointmentsComponent report={report} setReport={setReport} />
+        {!openFilter ? (
+          <div className="filter-state">
+              Добавить фильтр по дате:
+              <AddCircleOutlineIcon className='size-icon' onClick={() => openFilterFunc()} />
+          </div>
+        ) : (
+          <FilterAppointmentComponent
+            report={report}
+            setReport={setReport}
+            setOpenFilter={setOpenFilter}
+          />
+        )}
+      </div>
       <div className="container-appointment-style">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 {nametable.map((element) => (
-                  <TableCell key={`key-${element}`}>{element}</TableCell>
+                  <TableCell align='center' key={`key-${element}`}>{element}</TableCell>
                 ))}
                 <TableCell></TableCell>
               </TableRow>
@@ -86,15 +109,15 @@ const DoctorsAppointmentComponent = () => {
             <TableBody>
               {report.map((row, index) => (
                 <TableRow key={row._id}>
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" align='center'>
                     {row.name}
                   </TableCell>
-                  <TableCell>{row.doctor}</TableCell>
-                  <TableCell>
+                  <TableCell align='center'>{row.doctor}</TableCell>
+                  <TableCell align='center'>
                     {row.date.slice(0, 10).split("-").reverse().join(".")}
                   </TableCell>
-                  <TableCell>{row.complaint}</TableCell>
-                  <TableCell>
+                  <TableCell align='center'>{row.complaint}</TableCell>
+                  <TableCell align='center'>
                     <EditIcon onClick={() => editModal(index)} />
                     <DeleteIcon onClick={() => deleteModal(index)} />
                   </TableCell>
@@ -122,4 +145,4 @@ const DoctorsAppointmentComponent = () => {
   );
 }
 
-export default DoctorsAppointmentComponent
+export default DoctorsAppointmentComponent;
