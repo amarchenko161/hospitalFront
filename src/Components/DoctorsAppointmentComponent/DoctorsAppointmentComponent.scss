@@ -1,9 +1,82 @@
+.sort-and-filter {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  margin-top: 2%;
+  margin-bottom: 2%;
+
+  .filter-state {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 2%;
+
+    .size-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.sort-and-filter-wrap {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  flex-wrap: wrap;
+
+  .filter-state {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
 .container-appointment-style {
   display: flex;
   flex-direction: row;
   width: 100%;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
   align-items: center;
+
+  .MuiPaper-root {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  .MuiTableCell-head {
+    background: #C4C4C4;
+  }
+  .MuiTableCell-body {
+    border-right: 1px solid black;
+  }
+
+  .MuiTableBody-root {
+    border: 1px solid black;
+  }
 }
 
 
+@media screen and (max-width: 800px) {
+  .sort-and-filter {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+
+  .sort-and-filter-wrap {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+}

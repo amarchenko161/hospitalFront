@@ -32,7 +32,7 @@ const SortAppointmentsComponent = ({ report, setReport }) => {
   const sortTypes = [
     {
       value: "asc",
-      label: "По возростанию",
+      label: "По возрастанию",
     },
     {
       value: "desc",
@@ -48,6 +48,7 @@ const SortAppointmentsComponent = ({ report, setReport }) => {
   }
 
   const sortAppointments = (field, direction) => {
+    if (field === 'None') field = '_id';
     report.sort((a, b) => a[field] > b[field] ? -1 : a[field] < b[field] ? 1 : 0);
     if (direction === "asc") report.reverse();
     setReport([...report]);
@@ -63,6 +64,7 @@ const SortAppointmentsComponent = ({ report, setReport }) => {
               id="demo-simple-select"
               value={sortVal}
               onChange={(e) => handleChange(e, "sortVal")}
+              className='input-space'
             >
               {sortValue.map((element, index) => (
                 <MenuItem key={`id${index}`} value={element.value}>
@@ -82,6 +84,7 @@ const SortAppointmentsComponent = ({ report, setReport }) => {
                 id="demo-simple-select"
                 value={sortType}
                 onChange={(e) => handleChange(e, "sortType")}
+                className='input-space'
               >
                 {sortTypes.map((element, index) => (
                   <MenuItem key={`id${index}`} value={element.value}>

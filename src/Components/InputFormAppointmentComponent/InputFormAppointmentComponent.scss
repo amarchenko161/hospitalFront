@@ -10,10 +10,42 @@
   z-index: 1;
   padding-bottom: 15px;
 
+  .input-styles {
+    width: 20%;
+
+    .MuiBox-root {
+      min-width: auto;
+    }
+
+    .input-back {
+      width: 100%;
+      background-color: white;
+    }
+  }
   .center-button {
     height: 49px;
+    button {
+      background-color: white;
+      color: black;
+    }
   }
-  .input-back {
-    background-color: white;
+}
+
+@media screen and (max-width: 940px) {
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+
+    .input-styles {
+      width: 60%;
+    }
+
+    .center-button {
+      height: 49px;
+      margin-top: 2%;
+    }
   }
 }
