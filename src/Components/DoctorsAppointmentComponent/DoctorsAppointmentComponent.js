@@ -33,7 +33,7 @@ const DoctorsAppointmentComponent = () => {
 
   const openFilterFunc = () => {
     setOpenFilter(1);
-  };
+  }
 
   const history = useHistory("");
 
@@ -52,23 +52,23 @@ const DoctorsAppointmentComponent = () => {
   const deleteModal = (index) => {
     setVisit(index);
     setOpenDelet(true);
-  };
+  }
 
   const editModal = (index) => {
     setVisit(index);
     setOpenEdit(true);
-  };
+  }
 
   const closeModal = () => {
     setOpenEdit(false);
     setOpenDelet(false);
     setVisit(-1);
-  };
+  }
 
   const logout = () => {
     localStorage.removeItem("token");
     history.push("/");
-  };
+  }
 
   return (
     <div>
@@ -79,10 +79,10 @@ const DoctorsAppointmentComponent = () => {
       </HeaderFormComponent>
       <InputFormAppointmentComponent report={report} setReport={setReport} />
       <div className={
-        (openFilter === 1) ? "sort-and-filter-wrap" : "sort-and-filter" 
+        openFilter ? "sort-and-filter-wrap" : "sort-and-filter"
       }>
         <SortAppointmentsComponent report={report} setReport={setReport} />
-        {openFilter === 0 ? (
+        {!openFilter ? (
           <div className="filter-state">
               Добавить фильтр по дате:
               <AddCircleOutlineIcon className='size-icon' onClick={() => openFilterFunc()} />
@@ -143,6 +143,6 @@ const DoctorsAppointmentComponent = () => {
       </div>
     </div>
   );
-};
+}
 
 export default DoctorsAppointmentComponent;

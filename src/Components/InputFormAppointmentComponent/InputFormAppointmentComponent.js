@@ -45,7 +45,6 @@ const InputFormAppointmentComponent = ({ report, setReport }) => {
         report.push(res.data.data);
         setReport([...report]);
         setField({ name: "", doctor: "", date: new Date(), complaint: "" });
-        console.log(date, new Date());
       });
   };
 

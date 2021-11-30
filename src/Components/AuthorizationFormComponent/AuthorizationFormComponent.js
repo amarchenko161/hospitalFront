@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 import HeaderFormComponent from "../HeaderFormComponent/HeaderFormComponent";
 import Snackbar from "@mui/material/Snackbar";
 import logo from "../../source/logoBody.png";
@@ -39,11 +39,11 @@ const AuthorizationFormComponent = () => {
         }
       }
     }
-  };
+  }
 
   return (
     <div className="main-body-style">
-      <HeaderFormComponent title="Войти в систему" />
+      <HeaderFormComponent title="Войти в систему"/>
       <div className="body-style">
         <img src={logo} alt="" />
         <div className="form-style">
@@ -79,7 +79,7 @@ const AuthorizationFormComponent = () => {
         message={message}
       />
     </div>
-  );
+  )
 };
 
 export default AuthorizationFormComponent;
